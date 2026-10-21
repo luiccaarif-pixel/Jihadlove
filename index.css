@@ -1,0 +1,195 @@
+@import "tailwindcss";
+
+@theme {
+  --color-cream: #FFF9F6;
+  --color-blush-50: #FFF1F5;
+  --color-blush-100: #FFE4EC;
+  --color-blush-200: #FFCADA;
+  --color-blush-300: #FFA8C0;
+  --color-blush-400: #FB7BA4;
+  --color-blush-500: #F2568B;
+  --color-blush-600: #DB3D74;
+  --color-rose-deep: #BE185D;
+  --color-ink: #52303E;
+  --color-ink-soft: #946B7C;
+
+  --font-bangla: "Hind Siliguri", "Baloo Da 2", system-ui, sans-serif;
+  --font-display: "Baloo Da 2", "Hind Siliguri", system-ui, sans-serif;
+  --font-script: "Galada", "Baloo Da 2", cursive;
+
+  --shadow-soft: 0 18px 45px -18px rgba(190, 24, 93, 0.35);
+  --shadow-lift: 0 26px 60px -20px rgba(190, 24, 93, 0.45);
+  --shadow-chip: 0 6px 18px -6px rgba(190, 24, 93, 0.3);
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  background-color: #FFF9F6;
+  color: #52303E;
+  font-family: "Hind Siliguri", "Baloo Da 2", system-ui, sans-serif;
+  overflow-x: hidden;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: #ffcada;
+  color: #be185d;
+}
+
+/* ---------- ambient floating hearts / petals / sparkles ---------- */
+@keyframes floatUp {
+  0%   { transform: translate3d(0, 12vh, 0) rotate(-8deg) scale(0.85); opacity: 0; }
+  12%  { opacity: var(--po, 0.5); }
+  88%  { opacity: var(--po, 0.5); }
+  100% { transform: translate3d(var(--drift, 40px), -110vh, 0) rotate(24deg) scale(1.15); opacity: 0; }
+}
+@keyframes twinkle {
+  0%, 100% { opacity: 0.15; transform: scale(0.7) rotate(0deg); }
+  50%      { opacity: 0.9;  transform: scale(1.25) rotate(45deg); }
+}
+.float-item {
+  animation: floatUp var(--dur, 19s) linear var(--delay, 0s) infinite;
+  will-change: transform, opacity;
+}
+.twinkle {
+  animation: twinkle var(--dur, 3.4s) ease-in-out var(--delay, 0s) infinite;
+  will-change: transform, opacity;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .float-item, .twinkle, .hero-heart, .vinyl-spin, .marquee-track, .shimmer-sweep, .glow-breathe {
+    animation: none !important;
+  }
+  html { scroll-behavior: auto; }
+}
+
+/* ---------- hero heartbeat ---------- */
+@keyframes heartbeat {
+  0%, 100% { transform: scale(1); }
+  14%      { transform: scale(1.22); }
+  28%      { transform: scale(0.97); }
+  42%      { transform: scale(1.18); }
+  56%      { transform: scale(1); }
+}
+.hero-heart {
+  animation: heartbeat 2.4s cubic-bezier(0.34, 1.56, 0.64, 1) infinite;
+  transform-origin: center;
+}
+
+/* ---------- shimmer text (the name বুশরা gets its sparkle) ---------- */
+.shimmer {
+  background-image: linear-gradient(
+    100deg,
+    #be185d 0%, #f2568b 18%, #ff9dbb 32%, #ffe3ec 42%, #ffb3cd 52%, #f2568b 68%, #be185d 100%
+  );
+  background-size: 220% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  animation: shimmerMove 4.6s ease-in-out infinite;
+}
+@keyframes shimmerMove {
+  0%   { background-position: 120% 0; }
+  100% { background-position: -120% 0; }
+}
+
+/* ---------- marquee ribbon ---------- */
+@keyframes marqueeMove {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+.marquee-track {
+  animation: marqueeMove 28s linear infinite;
+  width: max-content;
+}
+
+/* ---------- soft rhythm wave bars ---------- */
+@keyframes waveBar {
+  0%, 100% { transform: scaleY(0.18); }
+  50%      { transform: scaleY(1); }
+}
+.wave-bar {
+  transform-origin: center;
+  animation: waveBar 0.9s ease-in-out infinite;
+}
+
+/* ---------- shimmer sweep on big buttons ---------- */
+@keyframes sweep {
+  0%, 55%   { transform: translateX(-130%) skewX(-18deg); opacity: 0; }
+  62%       { opacity: 1; }
+  78%, 100% { transform: translateX(240%) skewX(-18deg); opacity: 0; }
+}
+.shimmer-sweep {
+  animation: sweep 3.6s ease-in-out infinite;
+}
+
+/* ---------- breathing glow behind CTA ---------- */
+@keyframes glowBreathe {
+  0%, 100% { opacity: 0.55; transform: scale(1); }
+  50%      { opacity: 0.95; transform: scale(1.06); }
+}
+.glow-breathe {
+  animation: glowBreathe 3.8s ease-in-out infinite;
+}
+
+/* ---------- the vinyl disc spins while a voice note plays ---------- */
+@keyframes vinylSpin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+.vinyl-spin {
+  animation: vinylSpin 6s linear infinite;
+}
+
+/* ---------- equalizer bars on the disc label contract ---------- */
+@keyframes eq1 { 0%,100%{height:22%} 25%{height:78%} 50%{height:38%} 75%{height:88%} }
+@keyframes eq2 { 0%,100%{height:60%} 25%{height:30%} 50%{height:92%} 75%{height:42%} }
+@keyframes eq3 { 0%,100%{height:40%} 25%{height:88%} 50%{height:55%} 75%{height:26%} }
+@keyframes eq4 { 0%,100%{height:84%} 25%{height:44%} 50%{height:28%} 75%{height:72%} }
+.eq-bar-1 { animation: eq1 1.15s ease-in-out infinite; }
+.eq-bar-2 { animation: eq2 0.95s ease-in-out infinite 0.12s; }
+.eq-bar-3 { animation: eq3 1.3s ease-in-out infinite 0.28s; }
+.eq-bar-4 { animation: eq4 0.9s ease-in-out infinite 0.05s; }
+
+/* ---------- focus visibility for keyboard users ---------- */
+button:focus-visible, canvas:focus-visible, a:focus-visible, [tabindex]:focus-visible {
+  outline: 3px solid #f2568b;
+  outline-offset: 3px;
+  border-radius: 12px;
+}
+
+/* ---------- range input used for scrubbing (custom, pastel) ---------- */
+input[type="range"].blush-range {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 6px;
+  border-radius: 9999px;
+  background: linear-gradient(to right, #f2568b var(--fill, 0%), #ffe4ec var(--fill, 0%));
+  cursor: pointer;
+}
+input[type="range"].blush-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 9999px;
+  background: #ffffff;
+  border: 4px solid #f2568b;
+  box-shadow: 0 2px 8px rgba(190, 24, 93, 0.45);
+  transition: transform 0.15s ease;
+}
+input[type="range"].blush-range::-webkit-slider-thumb:hover { transform: scale(1.2); }
+input[type="range"].blush-range::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  border-radius: 9999px;
+  background: #ffffff;
+  border: 4px solid #f2568b;
+  box-shadow: 0 2px 8px rgba(190, 24, 93, 0.45);
+}
